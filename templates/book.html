@@ -1,38 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Library Books</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #6a11cb;
+            color: white;
+            cursor: pointer;
+        }
+
+        .book-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .book-card h3 {
+            margin: 0;
+            color: #333;
+        }
+    </style>
 </head>
-<body class="books-body">
+<body>
 
-<div class="books-wrapper">
+<div class="container">
+    <h1>📚 Library Books</h1>
 
-    <div class="books-header">
-        <h1>📚 Library Books</h1>
-        <p>All registered books</p>
-        <a href="{{ url_for('register_book') }}" class="add-btn">+ Add Book</a>
+    <form method="get" class="search-box">
+        <input type="text" name="search" placeholder="Search (romance, author, title)" value="{{ search or '' }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% for book in books %}
+    <div class="book-card">
+        <h3>{{ book.title }}</h3>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+        <p><strong>Genre:</strong> {{ book.genre }}</p>
+        <p><strong>Language:</strong> {{ book.language }}</p>
     </div>
-
-    <div class="books-grid">
-        {% for book in books %}
-        <div class="book-card">
-            <div class="book-icon">📘</div>
-            <h3>{{ book.title }}</h3>
-            <p><strong>Author:</strong> {{ book.author }}</p>
-            <p><strong>Publisher:</strong> {{ book.publisher }}</p>
-            <p><strong>Genre:</strong> {{ book.genre }}</p>
-            <p><strong>Language:</strong> {{ book.language }}</p>
-        </div>
-        {% endfor %}
-    </div>
-
+    {% else %}
+    <p style="text-align:center;">No books found.</p>
+    {% endfor %}
 </div>
-
-<footer class="footer">
-    © 2026 Library App
-</footer>
 
 </body>
 </html>
+
