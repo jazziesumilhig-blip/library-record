@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Registration</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LEFT -->
+    <div class="left">
+        <h1>Hello, Librarian 📚</h1>
+        <p>Register books easily and manage your library with style.</p>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right">
+        <h2>Register Book</h2>
+        <form method="POST">
+
+            <div class="input-group">
+                <input type="text" name="title" placeholder="Book Title" required>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="author" placeholder="Author" required>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="publisher" placeholder="Publisher">
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="genre" placeholder="Genre">
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="language" placeholder="Language">
+            </div>
+
+            <button type="submit">Save Book</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

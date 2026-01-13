@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="success-body">
+
+    <div class="success-card">
+        <div class="check-icon">✔</div>
+        <h1>Book Saved!</h1>
+        <p>The book was successfully added to the library.</p>
+
+        <div class="actions">
+            <a href="{{ url_for('register_book') }}" class="btn">Add Another</a>
+            <a href="{{ url_for('book_list') }}" class="btn outline">View Books</a>
+        </div>
+    </div>
+
+</body>
+</html>

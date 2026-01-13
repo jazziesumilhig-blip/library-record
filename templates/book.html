@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="books-body">
+
+<div class="books-wrapper">
+
+    <div class="books-header">
+        <h1>📚 Library Books</h1>
+        <p>All registered books</p>
+        <a href="{{ url_for('register_book') }}" class="add-btn">+ Add Book</a>
+    </div>
+
+    <div class="books-grid">
+        {% for book in books %}
+        <div class="book-card">
+            <div class="book-icon">📘</div>
+            <h3>{{ book.title }}</h3>
+            <p><strong>Author:</strong> {{ book.author }}</p>
+            <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+            <p><strong>Genre:</strong> {{ book.genre }}</p>
+            <p><strong>Language:</strong> {{ book.language }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<footer class="footer">
+    © 2026 Library App
+</footer>
+
+</body>
+</html>
