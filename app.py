@@ -13,11 +13,10 @@ DB_PATH = os.path.join(BASE_DIR, "library.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # para dictionary-like result
+    conn.row_factory = sqlite3.Row
     return conn
 
-
-# CREATE TABLE (auto create)
+# CREATE TABLE
 with get_db_connection() as conn:
     conn.execute("""
         CREATE TABLE IF NOT EXISTS books (
@@ -31,14 +30,12 @@ with get_db_connection() as conn:
     """)
     conn.commit()
 
-
 # ==========================
 # ROUTES
 # ==========================
 @app.route("/")
 def index():
     return redirect(url_for("register_book"))
-
 
 @app.route("/register", methods=["GET", "POST"])
 def register_book():
@@ -61,19 +58,30 @@ def register_book():
 
     return render_template("register_book.html")
 
-
 @app.route("/success")
 def success():
     return render_template("success.html")
 
-
 @app.route("/books")
 def book_list():
-    conn = get_db_connection()
-    books = conn.execute("SELECT * FROM books").fetchall()
-    conn.close()
-    return render_template("book.html", books=books)
+    search = request.args.get("search")
 
+    conn = get_db_connection()
+    if search:
+        books = conn.execute(
+            """
+            SELECT * FROM books
+            WHERE title LIKE ?
+            OR author LIKE ?
+            OR genre LIKE ?
+            """,
+            (f"%{search}%", f"%{search}%", f"%{search}%")
+        ).fetchall()
+    else:
+        books = conn.execute("SELECT * FROM books").fetchall()
+
+    conn.close()
+    return render_template("book.html", books=books, search=search)
 
 if __name__ == "__main__":
     app.run(debug=True)
